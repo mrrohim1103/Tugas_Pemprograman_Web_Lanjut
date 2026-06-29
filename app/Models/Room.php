@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Room extends Model
 {
-    protected $table      = 'departments';
-    protected $primaryKey = 'id_department';
+    protected $table      = 'rooms';
+    protected $primaryKey = 'id_room';
     protected $keyType    = 'string';
     public    $incrementing = false;
     const UPDATED_AT = null;
@@ -17,10 +17,5 @@ class Department extends Model
     public function location()
     {
         return $this->belongsTo(Location::class, 'id_location', 'id_location');
-    }
-
-    public function visits()
-    {
-        return $this->hasMany(Visit::class, 'id_department', 'id_department');
     }
 }

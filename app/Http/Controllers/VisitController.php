@@ -38,7 +38,7 @@ class VisitController extends Controller
         }
 
         // QUERY TABEL DATA (Disinkronkan dengan filter rentang tanggal)
-        $visits = Visit::with('guest')
+        $visits = Visit::with(['guest', 'department', 'purpose'])
             ->whereRaw("waktu_masuk::date BETWEEN ? AND ?", [$tgl_awal, $tgl_akhir])
             ->orderBy('waktu_masuk', 'desc')
             ->get();

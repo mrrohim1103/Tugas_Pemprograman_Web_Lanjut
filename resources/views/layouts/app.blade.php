@@ -71,6 +71,46 @@
                                     <span class="dropdown-item-text small text-muted">{{ Auth::user()->email }}</span>
                                 </li>
                                 <li><hr class="dropdown-divider my-1"></li>
+                                {{-- Master Data --}}
+                                <li><h6 class="dropdown-header small">Master Data</h6></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('master.locations') }}">
+                                        <i class="bi bi-geo-alt-fill me-2"></i>Lokasi
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('master.departments') }}">
+                                        <i class="bi bi-building me-2"></i>Departemen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('master.rooms') }}">
+                                        <i class="bi bi-door-open-fill me-2"></i>Ruangan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('master.guest-categories') }}">
+                                        <i class="bi bi-tags-fill me-2"></i>Kategori Tamu
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('master.visit-purposes') }}">
+                                        <i class="bi bi-clipboard2-check-fill me-2"></i>Keperluan Kunjungan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('master.roles') }}">
+                                        <i class="bi bi-shield-fill me-2"></i>Role
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="{{ route('master.blacklist') }}">
+                                        <i class="bi bi-slash-circle-fill me-2"></i>Daftar Hitam
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider my-1"></li>
+                                {{-- Akun Admin --}}
+                                <li><h6 class="dropdown-header small">Akun Admin</h6></li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('admin.tambah-akun') }}">
                                         <i class="bi bi-person-plus-fill me-2"></i>Tambah Akun Admin

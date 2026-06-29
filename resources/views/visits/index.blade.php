@@ -101,8 +101,8 @@
                         <td class="fw-bold">{{ $v->guest->nama_tamu ?? '-' }}</td>
                         <td><span class="badge bg-light text-dark border border-secondary">{{ $v->guest->perusahaan ?? '-' }}</span></td>
                         <td>
-                            <strong>{{ $v->keperluan }}</strong><br>
-                            <small class="text-muted">{{ $v->catatan }}</small>
+                            <span class="fw-semibold">{{ $v->purpose->nama_keperluan ?? $v->catatan }}</span><br>
+                            <small class="text-muted">{{ $v->department->nama_divisi ?? '-' }}</small>
                         </td>
                         <td>
                             @if($v->status == 'Masuk')
