@@ -54,16 +54,29 @@ class GuestVisitController extends Controller
         ]);
 
         // Simpan atau update data tamu berdasarkan nomor HP
-        $guest = Guest::updateOrCreate(
-            ['no_hp' => $request->no_hp],
-            [
-                'id_guest'    => Str::uuid()->toString(),
+        // id_guest hanya diisi saat INSERT baru, tidak diupdate jika sudah ada
+        $existingGuest = Guest::where('no_hp', $request->no_hp)->first();
+
+        if ($existingGuest) {
+            // Update data tamu yang sudah ada (tanpa ubah id_guest)
+            $existingGuest->update([
                 'nama_tamu'   => $request->nama_tamu,
                 'perusahaan'  => $request->perusahaan,
                 'email'       => $request->email,
                 'id_category' => $request->id_category,
-            ]
-        );
+            ]);
+            $guest = $existingGuest;
+        } else {
+            // Insert tamu baru dengan UUID baru
+            $guest = Guest::create([
+                'id_guest'    => Str::uuid()->toString(),
+                'no_hp'       => $request->no_hp,
+                'nama_tamu'   => $request->nama_tamu,
+                'perusahaan'  => $request->perusahaan,
+                'email'       => $request->email,
+                'id_category' => $request->id_category,
+            ]);
+        }
 
         // Simpan kunjungan
         $visitId = Str::uuid()->toString();

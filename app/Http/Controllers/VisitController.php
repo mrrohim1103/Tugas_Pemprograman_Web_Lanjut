@@ -7,7 +7,8 @@ use App\Models\Guest;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB; // Wajib ditambahkan untuk query grafik database
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class VisitController extends Controller
 {
@@ -64,20 +65,28 @@ class VisitController extends Controller
             'keperluan' => 'required|string'
         ]);
 
-        // PERBAIKAN: Baris 'jenis_tamu' sudah dihapus secara permanen di sini
-        $guest = Guest::updateOrCreate(
-            ['no_hp' => $request->no_hp],
-            [
-                'nama_tamu' => $request->nama_tamu,
-                'perusahaan' => $request->perusahaan
-            ]
-        );
+        // Simpan atau update data tamu (tanpa ubah id_guest jika sudah ada)
+        $existingGuest = Guest::where('no_hp', $request->no_hp)->first();
+        if ($existingGuest) {
+            $existingGuest->update([
+                'nama_tamu'  => $request->nama_tamu,
+                'perusahaan' => $request->perusahaan,
+            ]);
+            $guest = $existingGuest;
+        } else {
+            $guest = Guest::create([
+                'id_guest'   => Str::uuid()->toString(),
+                'no_hp'      => $request->no_hp,
+                'nama_tamu'  => $request->nama_tamu,
+                'perusahaan' => $request->perusahaan,
+            ]);
+        }
 
         Visit::create([
+            'id_visit' => Str::uuid()->toString(),
             'id_guest' => $guest->id_guest,
-            'status' => 'Masuk',
-            // Baris 'keperluan' dihapus, dan digabung ke dalam 'catatan'
-            'catatan' => 'Keperluan: ' . $request->keperluan . ' | Tujuan Divisi: ' . $request->divisi_tujuan
+            'status'   => 'Masuk',
+            'catatan'  => 'Keperluan: ' . $request->keperluan . ' | Tujuan Divisi: ' . $request->divisi_tujuan,
         ]);
 
         return redirect()->route('kunjungan.index')->with('success', 'Data kunjungan berhasil dicatat!');
