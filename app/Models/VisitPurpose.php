@@ -10,6 +10,7 @@ class VisitPurpose extends Model
     protected $primaryKey = 'id_purpose';
     protected $keyType    = 'string';
     public    $incrementing = false;
+    const CREATED_AT = null;
     const UPDATED_AT = null;
 
     protected $guarded = [];
