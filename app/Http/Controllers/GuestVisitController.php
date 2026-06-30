@@ -57,6 +57,7 @@ class GuestVisitController extends Controller
         $guest = Guest::updateOrCreate(
             ['no_hp' => $request->no_hp],
             [
+                'id_guest'    => Str::uuid()->toString(),
                 'nama_tamu'   => $request->nama_tamu,
                 'perusahaan'  => $request->perusahaan,
                 'email'       => $request->email,
@@ -65,7 +66,9 @@ class GuestVisitController extends Controller
         );
 
         // Simpan kunjungan
+        $visitId = Str::uuid()->toString();
         $visit = Visit::create([
+            'id_visit'      => $visitId,
             'id_guest'      => $guest->id_guest,
             'id_department' => $request->id_department,
             'id_purpose'    => $request->id_purpose,

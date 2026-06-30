@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Guest extends Model
 {
-    use HasUuids;
-
-    protected $table = 'guests';
+    protected $table      = 'guests';
     protected $primaryKey = 'id_guest';
-    protected $keyType = 'string';
-    public $incrementing = false;
+    protected $keyType    = 'string';
+    public    $incrementing = false;
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = null;
